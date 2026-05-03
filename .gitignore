@@ -1,5 +1,4 @@
 node_modules/
-# dist/
 .env
 .env.local
 service-account-key.json
@@ -7,5 +6,4 @@ service-account-key.json
 *.log
 .vscode/
 .idea/
-# frontend/dist/
-# server/dist/
+

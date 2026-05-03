@@ -6,24 +6,22 @@ import routes from './routes.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 
-// Middleware
 app.use(express.json());
+
+// Serve static frontend files
 app.use(express.static(path.join(__dirname, '../../frontend/dist')));
 
-// API Routes
 app.use('/api', routes);
 
-// Health check for Cloud Run
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Serve React app for all other routes (SPA fallback)
+// SPA fallback
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
 });
 
-// Error handler
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error('Error:', err);
   res.status(500).json({ 

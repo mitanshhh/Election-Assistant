@@ -1,0 +1,136 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { FileText, ExternalLink, Globe, ShieldCheck } from 'lucide-react';
+
+const RESOURCES = [
+  {
+    category: "Quick Links for Indian Election Forms",
+    items: [
+      { name: "Form 6 - Application for Registration of New Voters", desc: "For new voters to register", url: "https://voters.eci.gov.in" },
+      { name: "Form 7 - Application for Issue/Correction of EPIC (Voter ID)", desc: "For getting your Voter ID or correcting it", url: "https://voters.eci.gov.in" },
+      { name: "Form 8 - Application for Deletion of Entries in Electoral Roll", desc: "To delete an entry from the roll", url: "https://voters.eci.gov.in" },
+      { name: "Form 8A - Application for Correction of Entries in Electoral Roll", desc: "For correcting existing entries", url: "https://voters.eci.gov.in" },
+      { name: "Form 8B - Application for Correction of Name or Address", desc: "To update your name or address", url: "https://voters.eci.gov.in" },
+      { name: "Form 12D - Application for Postal Ballot", desc: "For eligible voters to vote by post", url: "https://voters.eci.gov.in" }
+    ]
+  },
+  {
+    category: "Important Contacts & Websites",
+    items: [
+      { name: "Election Commission of India (Main Website)", desc: "The official portal for ECI.", url: "https://www.eci.gov.in/" },
+      { name: "Voter Information Portal", desc: "Check Electoral Roll & Find Polling Booth.", url: "https://www.eci.gov.in/voter-information" },
+      { name: "Download Election Forms", desc: "All Forms Available Here.", url: "https://voters.eci.gov.in" },
+      { name: "Find Your Electoral Registration Officer", desc: "State-wise Directory.", url: "https://electoralsearch.eci.gov.in/" },
+      { name: "Election Commission of India - Contact Us", desc: "Get in touch with ECI.", url: "https://www.eci.gov.in/about-us/contact-us" },
+      { name: "State Election Commissions Directory", desc: "Directory of state commissions.", url: "https://www.eci.gov.in/election-commission/about-us/state-election-commission" }
+    ]
+  },
+  {
+    category: "Important Links for Voters",
+    items: [
+      { name: "Check Your Voter Registration Status", desc: "Verify your registration details.", url: "https://www.eci.gov.in/voter-information" },
+      { name: "Search Electoral Roll by Name", desc: "Find your name on the list.", url: "https://electoralsearch.eci.gov.in/" },
+      { name: "Find Your Polling Station/Booth", desc: "Locate where to vote.", url: "https://electoralsearch.eci.gov.in/" },
+      { name: "Download Election Apps", desc: "Official apps by ECI.", url: "https://www.eci.gov.in/" }
+    ]
+  },
+  {
+    category: "State-Wise Election Commission Websites",
+    items: [
+      { name: "Andhra Pradesh State Election Commission", desc: "State specific portal", url: "https://apec.gov.in/" },
+      { name: "Arunachal Pradesh State Election Commission", desc: "State specific portal", url: "https://aprunachal.nic.in/" },
+      { name: "Assam State Election Commission", desc: "State specific portal", url: "https://assamelection.nic.in/" },
+      { name: "Bihar State Election Commission", desc: "State specific portal", url: "https://sec.bihar.gov.in/" },
+      { name: "Chhattisgarh State Election Commission", desc: "State specific portal", url: "https://sec.cg.gov.in/" },
+      { name: "Delhi Election Commission", desc: "State specific portal", url: "https://www.delectioncommission.nic.in/" },
+      { name: "Goa State Election Commission", desc: "State specific portal", url: "https://goa.gov.in/election-commission/" },
+      { name: "Gujarat State Election Commission", desc: "State specific portal", url: "https://gsec.gujarat.gov.in/" },
+      { name: "Haryana State Election Commission", desc: "State specific portal", url: "https://haryana.gov.in/state-election-commission" },
+      { name: "Himachal Pradesh State Election Commission", desc: "State specific portal", url: "https://hpsec.nic.in/" },
+      { name: "Jharkhand State Election Commission", desc: "State specific portal", url: "https://sec.jharkhand.gov.in/" },
+      { name: "Karnataka State Election Commission", desc: "State specific portal", url: "https://secekannataka.nic.in/" },
+      { name: "Kerala State Election Commission", desc: "State specific portal", url: "https://sec.kerala.gov.in/" },
+      { name: "Madhya Pradesh State Election Commission", desc: "State specific portal", url: "https://mpsec.nic.in/" },
+      { name: "Maharashtra State Election Commission", desc: "State specific portal", url: "https://mahaseceioncommission.gov.in/" },
+      { name: "Manipur State Election Commission", desc: "State specific portal", url: "https://manipurelectioncommission.nic.in/" },
+      { name: "Meghalaya State Election Commission", desc: "State specific portal", url: "https://meg-sec.gov.in/" },
+      { name: "Mizoram State Election Commission", desc: "State specific portal", url: "https://mizoram.gov.in/web/election-commission" },
+      { name: "Nagaland State Election Commission", desc: "State specific portal", url: "https://nagaland.gov.in/" },
+      { name: "Odisha State Election Commission", desc: "State specific portal", url: "https://sec.odisha.gov.in/" },
+      { name: "Punjab State Election Commission", desc: "State specific portal", url: "https://punjab.gov.in/election" },
+      { name: "Rajasthan State Election Commission", desc: "State specific portal", url: "https://sec.rajasthan.gov.in/" },
+      { name: "Sikkim State Election Commission", desc: "State specific portal", url: "https://sikkim.gov.in/" },
+      { name: "Tamil Nadu State Election Commission", desc: "State specific portal", url: "https://tnelectioncommission.nic.in/" },
+      { name: "Telangana State Election Commission", desc: "State specific portal", url: "https://tnsec.telangana.gov.in/" },
+      { name: "Tripura State Election Commission", desc: "State specific portal", url: "https://sec.tripura.gov.in/" },
+      { name: "Uttar Pradesh State Election Commission", desc: "State specific portal", url: "https://sec.up.nic.in/" },
+      { name: "Uttarakhand State Election Commission", desc: "State specific portal", url: "https://sec.uk.gov.in/" },
+      { name: "West Bengal State Election Commission", desc: "State specific portal", url: "https://www.wbsec.gov.in/" }
+    ]
+  }
+];
+
+export function Docs() {
+  return (
+    <div className="bg-white min-h-screen py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-20">
+          <h1 className="text-5xl font-extrabold text-gray-900 mb-6">Important Documents</h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Access official portals, registration forms, and educational resources to ensure you're fully prepared.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {RESOURCES.map((section, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.1 }}
+              className="space-y-8"
+            >
+              <h3 className="text-sm font-bold text-blue-600 uppercase tracking-[0.2em]">
+                {section.category}
+              </h3>
+              
+              <div className="space-y-6">
+                {section.items.map((item, i) => (
+                  <a
+                    key={i}
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block p-6 bg-white border border-gray-100 rounded-3xl shadow-sm hover:border-blue-300 hover:shadow-xl hover:shadow-blue-50 transition-all duration-300"
+                  >
+                    <div className="flex justify-between items-start mb-3">
+                      <div className="p-2 bg-blue-50 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                        <FileText className="w-5 h-5" />
+                      </div>
+                      <ExternalLink className="w-4 h-4 text-gray-300 group-hover:text-blue-600 transition-colors" />
+                    </div>
+                    <h4 className="text-lg font-bold text-gray-900 mb-1">{item.name}</h4>
+                    <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Global Support Card */}
+        <div className="mt-24 bg-gray-900 rounded-[3rem] p-12 text-center text-white overflow-hidden relative">
+          <Globe className="absolute -top-12 -right-12 w-64 h-64 text-white/5" />
+          <ShieldCheck className="w-16 h-16 text-blue-500 mx-auto mb-6" />
+          <h2 className="text-3xl font-bold mb-4 italic">Need more help?</h2>
+          <p className="text-gray-400 mb-8 max-w-xl mx-auto">
+            If you're still unsure about your specific situation, you can contact the official National Voter Helpline at <span className="text-white font-bold">1950</span>.
+          </p>
+          <a href="https://electoralsearch.eci.gov.in/" target="_blank" rel="noopener noreferrer" className="inline-block px-10 py-4 bg-white text-gray-900 rounded-2xl font-bold hover:bg-blue-500 hover:text-white transition-all">
+            Find Your Electoral Officer
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}

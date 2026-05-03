@@ -1,0 +1,11 @@
+id,question,help_text,answer_1,answer_2,answer_3,next_1,next_2,next_3
+start,Are you a US citizen?,You must be a US citizen to vote in federal elections,Yes,No,-,age,ineligible,-
+age,Are you 18 or older?,Federal law requires voters to be 18+,Yes,No,-,residency,ineligible,-
+residency,Have you lived in your state for 30+ days?,Most states require 30-day residency,Yes,No,-,registration,ineligible,-
+registration,Are you registered to vote?,"Registration deadline is usually 2 weeks before the election",Yes,No,Not sure,voting_method,register_guide,check_status
+voting_method,How will you vote?,Choose your preferred voting method,In-person,Early voting,Mail,summary,summary,summary
+register_guide,Visit your state election website to register,"You can register online or in person. Deadline is 2 weeks before election",-,-,-,summary,-,-
+check_status,Visit vote.org to check registration status,Enter your state and name to verify,-,-,-,summary,-,-
+summary,You're ready to vote!,Here's your personalized voting guide,-,-,-,end,-,-
+ineligible,You may not be eligible to vote now,Learn more from your state election office,-,-,-,end,-,-
+end,Thank you for using Election Assistant,Download your personalized guide,-,-,-,-,-,-

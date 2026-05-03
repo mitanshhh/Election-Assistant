@@ -15,19 +15,12 @@ jobs:
         with:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          export_default_credentials: true
       
-      - name: Configure Docker authentication
+      - name: Build with Cloud Build
         run: |
-          gcloud auth configure-docker gcr.io
-      
-      - name: Build Docker image
-        run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/election-assistant:latest .
-      
-      - name: Push to Google Container Registry
-        run: |
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/election-assistant:latest
+          gcloud builds submit \
+            --tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/election-assistant:latest \
+            --project=${{ secrets.GCP_PROJECT_ID }}
       
       - name: Deploy to Cloud Run
         run: |

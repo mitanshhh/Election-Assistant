@@ -23,16 +23,16 @@ jobs:
       
       - name: Build Docker image
         run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/election-assistant .
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/election-assistant:latest .
       
       - name: Push to Google Container Registry
         run: |
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/election-assistant
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/election-assistant:latest
       
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy election-assistant \
-            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/election-assistant \
+            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/election-assistant:latest \
             --platform managed \
             --region us-central1 \
             --allow-unauthenticated \

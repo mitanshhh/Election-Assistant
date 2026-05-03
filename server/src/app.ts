@@ -8,8 +8,9 @@ const app = express();
 
 app.use(express.json());
 
-// Serve static frontend files
-app.use(express.static(path.join(__dirname, '../../frontend/dist')));
+// Serve static frontend files - correct path
+const frontendPath = path.join(__dirname, '../../../frontend/dist');
+app.use(express.static(frontendPath));
 
 app.use('/api', routes);
 
@@ -19,7 +20,7 @@ app.get('/health', (req, res) => {
 
 // SPA fallback
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
+  res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {

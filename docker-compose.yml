@@ -20,3 +20,4 @@ services:
 secrets:
   google_key:
     file: ./service-account-key.json
+    

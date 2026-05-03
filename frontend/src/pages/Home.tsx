@@ -163,39 +163,68 @@ export function Home() {
   const [expandedEssential, setExpandedEssential] = React.useState<number | null>(null);
 
   return (
-    <div className="bg-white">
+    <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
       <section className="relative overflow-hidden pt-20 pb-32">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-50/50 via-white to-white -z-10" />
+        {/* Animated abstract background matching the provided image vibe */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[50%] bg-blue-100/40 rounded-full blur-3xl" />
+          <div className="absolute top-[20%] right-[5%] w-[30%] h-[40%] bg-blue-100/30 rounded-full blur-3xl" />
+          <div className="absolute -bottom-[10%] left-[20%] w-[50%] h-[50%] bg-blue-50/50 rounded-full blur-3xl" />
+          
+          {/* Subtle geometric floating shapes */}
+          <motion.div 
+            animate={{ y: [0, 20, 0], rotate: [0, 5, 0] }} 
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-[15%] left-[15%] w-32 h-32 border border-blue-100 rounded-3xl opacity-50" 
+          />
+          <motion.div 
+            animate={{ y: [0, -20, 0], rotate: [0, -5, 0] }} 
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute bottom-[20%] right-[15%] w-40 h-40 border border-blue-100 rounded-full opacity-50" 
+          />
+          <motion.div 
+            animate={{ scale: [1, 1.05, 1] }} 
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-[40%] right-[25%] w-20 h-24 bg-gradient-to-tr from-blue-50 to-white shadow-sm border border-white rounded-xl opacity-60 rotate-12" 
+          />
+        </div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold mb-6">
-              Election Guide
-            </span>
-            <h1 className="text-6xl md:text-7xl font-extrabold text-gray-900 mb-8 tracking-tight">
-              Your Vote is Your <span className="text-blue-600">Voice.</span>
+            <motion.span 
+              whileHover={{ scale: 1.05 }}
+              className="inline-flex items-center px-6 py-2 rounded-full bg-white shadow-sm border border-blue-100 text-blue-600 text-sm font-bold mb-8 tracking-wide uppercase"
+            >
+              <span className="w-2 h-2 rounded-full bg-blue-500 mr-2 animate-pulse"></span>
+              Election Guide 2026
+            </motion.span>
+            
+            <h1 className="text-6xl md:text-8xl font-extrabold text-gray-900 mb-8 tracking-tight">
+              Your Vote is <br className="hidden md:block" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400">Your Voice.</span>
             </h1>
-            <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+            
+            <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
               Everything you need to know about participating in the upcoming election. 
               Check your eligibility, find documents, and get ready to make a difference.
             </p>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link
                 to="/eligible"
-                className="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-200 transition-all duration-300 flex items-center justify-center group"
+                className="w-full sm:w-auto px-10 py-5 bg-blue-600 text-white rounded-full font-bold text-lg hover:bg-blue-700 hover:shadow-2xl hover:shadow-blue-300/50 transition-all duration-300 flex items-center justify-center group transform hover:-translate-y-1"
               >
                 Am I Eligible?
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform" />
               </Link>
               <Link
                 to="/docs"
-                className="w-full sm:w-auto px-8 py-4 bg-white text-gray-900 border border-gray-200 rounded-2xl font-bold text-lg hover:bg-gray-50 transition-all duration-300"
+                className="w-full sm:w-auto px-10 py-5 bg-white text-gray-900 border-2 border-gray-100 shadow-sm rounded-full font-bold text-lg hover:border-blue-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
               >
                 View Resources
               </Link>

@@ -71,65 +71,134 @@ const RESOURCES = [
 ];
 
 export function Docs() {
+  const [searchTerm, setSearchTerm] = React.useState('');
+
   return (
-    <div className="bg-white min-h-screen py-20">
+    <div className="bg-gray-50 min-h-screen py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-20">
-          <h1 className="text-5xl font-extrabold text-gray-900 mb-6">Important Documents</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <motion.h1 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-5xl font-extrabold text-gray-900 mb-6"
+          >
+            Important Documents
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-xl text-gray-600 max-w-2xl mx-auto"
+          >
             Access official portals, registration forms, and educational resources to ensure you're fully prepared.
-          </p>
+          </motion.p>
+          
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+            className="mt-8 max-w-xl mx-auto relative"
+          >
+            <input
+              type="text"
+              placeholder="Search for forms, states, or portals..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full px-6 py-4 rounded-full border-2 border-gray-200 shadow-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none text-lg text-gray-700 bg-white"
+            />
+            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400">
+              🔍
+            </span>
+          </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {RESOURCES.map((section, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
-              className="space-y-8"
-            >
-              <h3 className="text-sm font-bold text-blue-600 uppercase tracking-[0.2em]">
-                {section.category}
-              </h3>
-              
-              <div className="space-y-6">
-                {section.items.map((item, i) => (
-                  <a
-                    key={i}
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group block p-6 bg-white border border-gray-100 rounded-3xl shadow-sm hover:border-blue-300 hover:shadow-xl hover:shadow-blue-50 transition-all duration-300"
-                  >
-                    <div className="flex justify-between items-start mb-3">
-                      <div className="p-2 bg-blue-50 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                        <FileText className="w-5 h-5" />
+        <div className="space-y-16">
+          {RESOURCES.map((section, idx) => {
+            const filteredItems = section.items.filter(item => 
+              item.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+              item.desc.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+
+            if (filteredItems.length === 0) return null;
+
+            return (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                className="space-y-6"
+              >
+                <div className="flex items-center space-x-4">
+                  <h3 className="text-xl font-bold text-gray-900 tracking-wide flex items-center">
+                    <div className="w-2 h-8 bg-blue-600 rounded-full mr-3"></div>
+                    {section.category}
+                  </h3>
+                  <div className="h-px bg-gray-200 flex-1"></div>
+                </div>
+                
+                {/* 3 columns grid for the items inside the category */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredItems.map((item, i) => (
+                    <motion.a
+                      whileHover={{ y: -5, scale: 1.02 }}
+                      key={i}
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group block p-6 bg-white border border-gray-100 rounded-2xl shadow-md hover:border-blue-300 hover:shadow-xl hover:shadow-blue-100 transition-all duration-300"
+                    >
+                      <div className="flex justify-between items-start mb-4">
+                        <div className="p-3 bg-blue-50 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                          <FileText className="w-6 h-6" />
+                        </div>
+                        <ExternalLink className="w-5 h-5 text-gray-300 group-hover:text-blue-600 transition-colors" />
                       </div>
-                      <ExternalLink className="w-4 h-4 text-gray-300 group-hover:text-blue-600 transition-colors" />
-                    </div>
-                    <h4 className="text-lg font-bold text-gray-900 mb-1">{item.name}</h4>
-                    <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
-                  </a>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+                      <h4 className="text-lg font-bold text-gray-900 mb-2 leading-tight">{item.name}</h4>
+                      <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                    </motion.a>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
+          
+          {/* Show a message if nothing matches the search */}
+          {RESOURCES.every(section => 
+            section.items.filter(item => 
+              item.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+              item.desc.toLowerCase().includes(searchTerm.toLowerCase())
+            ).length === 0
+          ) && (
+            <div className="text-center py-12 text-gray-500">
+              <p className="text-xl">No forms or links found for "{searchTerm}"</p>
+            </div>
+          )}
         </div>
 
         {/* Global Support Card */}
-        <div className="mt-24 bg-gray-900 rounded-[3rem] p-12 text-center text-white overflow-hidden relative">
-          <Globe className="absolute -top-12 -right-12 w-64 h-64 text-white/5" />
-          <ShieldCheck className="w-16 h-16 text-blue-500 mx-auto mb-6" />
-          <h2 className="text-3xl font-bold mb-4 italic">Need more help?</h2>
-          <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-            If you're still unsure about your specific situation, you can contact the official National Voter Helpline at <span className="text-white font-bold">1950</span>.
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-24 bg-gradient-to-br from-gray-900 to-blue-900 rounded-[3rem] p-12 text-center text-white overflow-hidden relative shadow-2xl"
+        >
+          <Globe className="absolute -top-12 -right-12 w-64 h-64 text-white/5 animate-spin-slow" />
+          <ShieldCheck className="w-16 h-16 text-blue-400 mx-auto mb-6" />
+          <h2 className="text-3xl font-bold mb-4">Need more help?</h2>
+          <p className="text-blue-100 mb-8 max-w-xl mx-auto text-lg">
+            If you're still unsure about your specific situation, contact the official National Voter Helpline at <span className="text-white font-bold bg-blue-600 px-2 py-1 rounded-md">1950</span>.
           </p>
-          <a href="https://electoralsearch.eci.gov.in/" target="_blank" rel="noopener noreferrer" className="inline-block px-10 py-4 bg-white text-gray-900 rounded-2xl font-bold hover:bg-blue-500 hover:text-white transition-all">
-            Find Your Electoral Officer
+          <a 
+            href="https://electoralsearch.eci.gov.in/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="inline-flex items-center space-x-2 px-10 py-4 bg-white text-gray-900 rounded-full font-bold text-lg hover:bg-blue-50 transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:-translate-y-1"
+          >
+            <span>Find Your Electoral Officer</span>
+            <ExternalLink className="w-5 h-5" />
           </a>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

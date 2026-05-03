@@ -83,4 +83,5 @@ Visit `http://localhost:3000`
 | register_guide | Visit your state election website | You can register online or in person | | | | | summary | |
 | summary | You're ready to vote! | Here's your personalized guide | | | | | end | |
 | ineligible | You may not be eligible | Learn more from your state election office | | | | | end | |
-| end | Thank you! | Download your guide | | | | | | |
+| end | Thank you! | Download your guide | | | | | | |  
+
